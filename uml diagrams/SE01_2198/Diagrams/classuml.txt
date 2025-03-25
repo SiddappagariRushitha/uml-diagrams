@@ -1,0 +1,25 @@
+@startuml
+class Bank {
+    - name: String
+    - location: String
+    + openAccount(): Account
+    + closeAccount(): void
+}
+
+class Account {
+    - accountNumber: int
+    - balance: double
+    + deposit(amount: double): void
+    + withdraw(amount: double): void
+}
+
+class Customer {
+    - name: String
+    - address: String
+    + register(): void
+    + login(): void
+}
+
+Bank "1" -- "many" Account : manages
+Customer "1" -- "many" Account : owns
+@enduml

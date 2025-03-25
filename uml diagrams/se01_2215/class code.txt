@@ -1,0 +1,30 @@
+@startuml
+class Account {
+    +accountNumber: String
+    +balance: Double
+    +deposit(amount: Double)
+    +withdraw(amount: Double)
+}
+
+class Customer {
+    +customerId: String
+    +name: String
+    +openAccount()
+    +closeAccount()
+}
+
+class Bank {
+    +bankName: String
+    +location: String
+}
+
+class Transaction {
+    +transactionId: String
+    +amount: Double
+    +transactionType: String
+}
+
+Customer "1" -- "0..*" Account
+Account "1" -- "0..*" Transaction
+Bank "1" -- "0..*" Account
+@enduml

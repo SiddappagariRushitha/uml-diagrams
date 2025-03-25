@@ -1,0 +1,37 @@
+@startuml
+class Customer {
+  +name: String
+  +accountNumber: String
+  +balance: Double
+  +deposit(amount: Double)
+  +withdraw(amount: Double)
+}
+
+class Account {
+  +accountNumber: String
+  +balance: Double
+  +openAccount()
+  +closeAccount()
+}
+
+class SavingsAccount {
+  +interestRate: Double
+  +addInterest()
+}
+
+class CurrentAccount {
+  +overdraftLimit: Double
+}
+
+class Transaction {
+  +transactionId: String
+  +date: Date
+  +amount: Double
+  +type: String
+}
+
+Customer "1" -- "1" Account
+Account <|-- SavingsAccount
+Account <|-- CurrentAccount
+Account "1" -- "many" Transaction
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+class Bank {
+    - name: String
+    - location: String
+    + getBankDetails(): void
+}
+
+class Account {
+    - accountNumber: String
+    - balance: double
+    + deposit(amount: double): void
+    + withdraw(amount: double): void
+}
+
+class Customer {
+    - name: String
+    - customerId: String
+    + openAccount(): void
+    + closeAccount(): void
+}
+
+class Transaction {
+    - transactionId: String
+    - amount: double
+    + processTransaction(): void
+}
+
+Bank "1" -- "many" Account
+Customer "1" -- "many" Account
+Account "1" -- "many" Transaction
+@enduml
