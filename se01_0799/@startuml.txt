@@ -1,0 +1,125 @@
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+// Base Account Class
+abstract class Account {
+    protected String accountNumber;
+    protected double balance;
+
+    public Account(String accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
+
+    public abstract void openAccount();
+    public abstract void closeAccount();
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        balance -= amount;
+    }
+}
+
+// Savings Account Class
+class SavingsAccount extends Account {
+    private double interestRate;
+
+    public SavingsAccount(String accountNumber, double initialBalance, double interestRate) {
+        super(accountNumber, initialBalance);
+        this.interestRate = interestRate;
+    }
+
+    public void addInterest() {
+        balance += balance * interestRate;
+    }
+
+    @Override
+    public void openAccount() {
+        // Implementation logic
+        System.out.println("Savings Account opened.");
+    }
+
+    @Override
+    public void closeAccount() {
+        // Implementation logic
+        System.out.println("Savings Account closed.");
+    }
+}
+
+// Current Account Class
+class CurrentAccount extends Account {
+    private double overdraftLimit;
+
+    public CurrentAccount(String accountNumber, double initialBalance, double overdraftLimit) {
+        super(accountNumber, initialBalance);
+        this.overdraftLimit = overdraftLimit;
+    }
+
+    @Override
+    public void openAccount() {
+        // Implementation logic
+        System.out.println("Current Account opened.");
+    }
+
+    @Override
+    public void closeAccount() {
+        // Implementation logic
+        System.out.println("Current Account closed.");
+    }
+}
+
+// Transaction Class
+class Transaction {
+    private String transactionId;
+    private Date date;
+    private double amount;
+    private String type;
+
+    public Transaction(String transactionId, Date date, double amount, String type) {
+        this.transactionId = transactionId;
+        this.date = date;
+        this.amount = amount;
+        this.type = type;
+    }
+
+    // Getters and Setters
+}
+
+// Customer Class
+class Customer {
+    private String name;
+    private String accountNumber;
+    private double balance;
+    private List<Transaction> transactions;
+
+    public Customer(String name, String accountNumber, double initialBalance) {
+        this.name = name;
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+        this.transactions = new ArrayList<>();
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        // Record transaction
+        transactions.add(new Transaction("TXN" + (transactions.size() + 1), new Date(), amount, "Deposit"));
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            // Record transaction
+            transactions.add(new Transaction("TXN" + (transactions.size() + 1), new Date(), amount, "Withdraw"));
+        } else {
+            System.out.println("Insufficient balance.");
+        }
+    }
+}
